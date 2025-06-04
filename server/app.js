@@ -61,7 +61,7 @@ app.get("/docs", (req, res) => {
 });
 
 
-app.get("/cohorts", (req, res) => {
+/*app.get("/cohorts", (req, res) => {
   Cohort.find({})
   .then((cohorts) => {
     console.log("Retrieved cohorts", cohorts);
@@ -71,10 +71,10 @@ app.get("/cohorts", (req, res) => {
     console.error("Error while retrieving cohorts ->", error);
     res.status(500).json({error: "Failed to retrieve cohorts"});
   })
-});
+});*/
 
 //ruta que hace que se busquen estudiantes
-app.get("/students", (req, res) => {
+app.get("/students", (req, res) => {  //*
   Student.find({})
   .then((students) => {
     console.log("Retrieved students", students);
@@ -111,22 +111,24 @@ app.post("/students", (req, res) => {
   })
 });
 
-//ruta dinamica para estudiantes: busca dentro del estudiante el Id. de cohort
+//ruta dinamica para estudiantes: busca dentro del estudiante el Id. de cohort 
 app.get("/students/cohort/:cohortId", (req,res) => {
-    Student.findById(req.params.cohortId)
-  .then(() =>{
-  res.send("dentro del estudiante hemos encontrado el cohort concreto que buscábamos")
+    Student.find({cohort:req.params.cohortId})
+  .populate('cohort')
+  .then((respuestaDeLaBaseDeDatos) =>{
+  res.json(respuestaDeLaBaseDeDatos)
   })
   .catch((error) => {
     console.log(error)
   })
 })
 
-//ruta para buscar un student por su id
+//ruta para buscar un student por su id 
 app.get("/students/:studentId", (req,res) => {
     Student.findById(req.params.studentId)
-  .then(() =>{
-  res.send("hemos encontrado estudiante por su id")
+  .populate('student')
+  .then((respuestaDeLaBaseDeDatosStudentPorSuId) =>{
+  res.json("respuestaDeLaBaseDeDatosStudentPorSuId")
   })
   .catch((error) => {
     console.log(error)

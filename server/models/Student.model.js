@@ -17,7 +17,7 @@ const studentSchema = new mongoose.Schema({
   background: {type:String, default: "" },
   image: {type:String, default: 'https://i.imgur.com/r8bo8u7.png' },
   projects: [String],
-  cohort: mongoose.Schema.Types.ObjectId
+  cohort: {type: mongoose.Schema.Types.ObjectId, ref: 'Cohort'} 
 
 })
 
