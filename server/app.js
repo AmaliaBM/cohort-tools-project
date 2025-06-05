@@ -99,7 +99,7 @@ app.get("/docs", (req, res) => {
 
 
 app.get("/cohorts", (req, res) => {
-  Cohort.find({})
+  Cohort.find({}) //este es el modelo
   .then((cohorts) => {
     console.log("Retrieved cohorts", cohorts);
       res.json(cohorts)
